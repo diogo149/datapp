@@ -2,6 +2,17 @@
 ** Goals
 - provide the tools to make an app as data
 - provide everything in between calling functions between a Clojure server and Clojurescript webapp
+- as little as possible "template" code - the stuff that gets copy-pasted to get a project started
+  - in a reasonable manner; it should still make sense and not be a macro monstrosity
+  - with preference to having the stuff that does get copy-pasted very unlikely to change (eg. project settings)
+** Motivation
+This is meant to solve two problems for me.
+
+First: I find myself, when making a quick new project for a hackathon or a quick prototype, copy-pasting a ton of code. This is quite annoying because now I have to maintain that code, and when I make improvements to it, I basically have to copy-paste it into all projects with a similar structure (if I'm still maintaining them). Why not factor our the reusable part of webapps?
+
+Second: Decomplecting all of this stuff from business logic. This is separate logic, so it should be kept separate to make it easy to follow best practices.
+
+It seems like there are other attempts to solve this problem, but they mostly involve templates (which solves neither problem, it just makes it easier to get started). Hopefully, it can help others who feel the same.
 * TODOs
 - more sugar in merging into the system map
 - try resources with in library?
