@@ -1,0 +1,41 @@
+* datapp
+** Goals
+- provide the tools to make an app as data
+- provide everything in between calling functions between a Clojure server and Clojurescript webapp
+* TODOs
+- transit
+  - finish transit wrapper for api
+- try resources with in library?
+- reagent / reagent utils
+  - with nashorn + generating html serverside
+- scss
+- timer
+- websocket
+- authentication
+  - DIY with session
+  - mongo session
+  - friend
+- cljs repl
+- browser repl
+- db modules
+  - mongodb
+  - datomic?
+  - postgres
+    - korma
+    - [[https://github.com/alaisi/postgres.async][postgres.async]]
+- cordova
+  - APNS
+  - GCM
+  - make-updating-app
+  - make-static-app
+- testing
+- heroku/docker setup?
+- study
+  - luminus
+    - http://yogthos.net/#/blog/35-Luminus:+a+web+framework+for+Clojure
+    - https://github.com/yogthos/luminus-template
+    - http://www.luminusweb.net/
+  - pedestal
+    - https://github.com/pedestal/pedestal
+    - http://teropa.info/blog/2013/10/18/single-page-webapps-in-clojurescript-with-pedestal.html
+- break subcomponents into separate projects
