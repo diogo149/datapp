@@ -38,6 +38,7 @@ It seems like there are other attempts to solve this problem, but they mostly in
   - GCM
   - make-updating-app
   - make-static-app
+- node-webkit
 - testing
 - heroku/docker setup?
 - study

@@ -75,20 +75,3 @@
     (dissoc this :middleware-map)))
 
 (def middleware-component (map->MiddlewareComponent {}))
-
-(comment
-  (def last-request
-  "for debugging"
-  (atom nil))
-
-  (defn wrap-api-uri
-    [handler]
-    (fn [req]
-      (reset! last-request req)
-      (if-not (and (->> req :request-method (= :post))
-                   (->> req :uri (re-find #"^/api")))
-        (handler req)
-        ((->> api/handle-api
-              ((fn [handler] (fn [req] (-> req :params handler))))
-              serveru/wrap-unified-edn-api)
-         req)))))
