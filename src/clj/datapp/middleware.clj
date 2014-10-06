@@ -4,6 +4,7 @@
             ring.middleware.params
             ring.middleware.keyword-params
             ring.middleware.json
+            ring.middleware.transit
             ring.middleware.gzip
             ring.middleware.content-type
             ring.middleware.not-modified
@@ -39,12 +40,23 @@
       ringu/wrap-fix-request
       ringu/wrap-request-logging))
 
+(defn wrap-api
+  [handler]
+  (fn [req]
+    (-> req :transit-params handler)))
+
 (defn default-middleware-map
   [{:keys [] :as app-config}]
   {:api #(-> %
-             ring.middleware.keyword-params/wrap-keyword-params
-             ring.middleware.json/wrap-json-params
-             ring.middleware.params/wrap-params
+             wrap-api
+             ring.middleware.transit/wrap-transit-params
+             ringu/wrap-transit-response
+             ;; not using this for now because it only works for responses
+             ;; that are a map
+             #_ring.middleware.transit/wrap-transit-response
+             ;; ring.middleware.keyword-params/wrap-keyword-params
+             ;; ring.middleware.json/wrap-json-params
+             ;; ring.middleware.params/wrap-params
              (wrap-defaults app-config))
    :home-page #(-> %
                    ringu/wrap-html-response

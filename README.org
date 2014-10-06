@@ -3,8 +3,7 @@
 - provide the tools to make an app as data
 - provide everything in between calling functions between a Clojure server and Clojurescript webapp
 * TODOs
-- transit
-  - finish transit wrapper for api
+- more sugar in merging into the system map
 - try resources with in library?
 - reagent / reagent utils
   - with nashorn + generating html serverside
@@ -39,3 +38,4 @@
     - https://github.com/pedestal/pedestal
     - http://teropa.info/blog/2013/10/18/single-page-webapps-in-clojurescript-with-pedestal.html
 - break subcomponents into separate projects
+- make starter a template

@@ -25,7 +25,7 @@
                         wrapped-handler
                         prev-handler)
                      req))))))
-          (fn [& _] (assert false "No default handler found"))
+          (fn [& _] (throw (Exception. "No default handler found")))
           (reverse handler-filters)))
 
 (defrecord HandlerComponent [handler

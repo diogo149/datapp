@@ -8,7 +8,7 @@
   "This is an example of app-config, which should be overwritten"
   {:optimus/dev? false
    :optimus/css-files []
-   :optimus/js-files []
+   :optimus/js-files ["/cljs/all.js"]
    :optimus/assets []
    :cljs/dev? false
    :cljs/ns "datapp.core"

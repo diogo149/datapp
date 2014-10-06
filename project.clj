@@ -12,8 +12,12 @@
                  [ring "1.3.1"]
                  [ring/ring-json "0.3.1"]
                  [bk/ring-gzip "0.1.1"]
+                 [ring-transit "0.1.2"]
                  [optimus "0.15.0"]
-                 [http-kit "2.1.19"]]
+                 [http-kit "2.1.19"]
+                 ;; cljs
+                 [org.clojure/clojurescript "0.0-2322"]
+                 [cljs-http "0.1.16"]]
   :profiles {:dev {:dependencies [[org.clojure/clojure "1.6.0"]]
                    :plugins [[lein-shell "0.4.0"]
                              [lein-cljsbuild "1.0.3"]

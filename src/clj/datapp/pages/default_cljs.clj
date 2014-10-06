@@ -24,13 +24,13 @@
       [:title title]]
      [:body
       [:div {:id "cljs-target"}]
+      (when dev?
+        [:script {:type "text/javascript"
+                  :src "/cljs/dev/goog/base.js"}])
       (for [js-file (concat (optimus.link/bundle-paths req ["all.js"])
                             js-files)]
         [:script {:type "text/javascript"
                   :src js-file}])
       (when dev?
-        (list
-         [:script {:type "text/javascript"
-                   :src "/cljs/dev/goog/base.js"}]
-         [:script {:type "text/javascript"}
-          (format "goog.require(\"%s\");" ns)]))]])))
+        [:script {:type "text/javascript"}
+         (format "goog.require(\"%s\");" ns)])]])))

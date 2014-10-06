@@ -1,5 +1,6 @@
 (ns datapp.utils.ring
   (:require [clojure.data.json :as json]
+            [clojure.edn :as edn]
             ring.util.response
             [datapp.utils.random :as randomu]
             [taoensso.timbre :as log]
@@ -79,3 +80,22 @@
   [handler map]
   (fn [req]
     (handler (merge map req))))
+
+(defn wrap-unified-edn-api
+  "Middleware wrapper. For requests, deserialized value of edn string in the :q
+   field of the request map and merges it into the request. For responses,
+   returns a map of json with the single key \"q\" and value the original
+   response serialized into an edn string.
+
+   Must be the very last handler applied to the request and first to the
+   response."
+  [handler]
+  (fn [req]
+    (let [edn (-> req :params :q edn/read-string)
+          new-req (update-in req [:params] merge edn)
+          resp (handler new-req)]
+      (if (ring.util.response/response? resp)
+        resp
+        (let [new-resp (pr-str resp)
+              as-map {:q new-resp}]
+          (json-response as-map))))))
