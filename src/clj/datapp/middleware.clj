@@ -40,15 +40,15 @@
       ringu/wrap-fix-request
       ringu/wrap-request-logging))
 
-(defn wrap-api
+(defn wrap-call-api
   [handler]
   (fn [req]
-    (-> req :transit-params handler)))
+    (handler (:transit-params req) req)))
 
 (defn default-middleware-map
   [{:keys [] :as app-config}]
   {:api #(-> %
-             wrap-api
+             wrap-call-api
              ring.middleware.transit/wrap-transit-params
              ringu/wrap-transit-response
              ;; not using this for now because it only works for responses

@@ -14,13 +14,15 @@ Second: Decomplecting all of this stuff from business logic. This is separate lo
 
 It seems like there are other attempts to solve this problem, but they mostly involve templates (which solves neither problem, it just makes it easier to get started). Hopefully, it can help others who feel the same.
 * TODOs
+- cljs timer utils
+- websocket component
 - more sugar in merging into the system map
+  - use update-in [:key] merge
 - try resources with in library?
 - reagent / reagent utils
   - with nashorn + generating html serverside
 - scss
-- timer
-- websocket
+- clj timer
 - authentication
   - DIY with session
   - mongo session
@@ -41,6 +43,9 @@ It seems like there are other attempts to solve this problem, but they mostly in
 - node-webkit
 - testing
 - heroku/docker setup?
+- make project work with cljx
+  - https://github.com/Prismatic/schema/blob/master/project.clj
+  - https://github.com/Prismatic/plumbing/blob/master/project.clj
 - study
   - luminus
     - http://yogthos.net/#/blog/35-Luminus:+a+web+framework+for+Clojure
@@ -51,3 +56,6 @@ It seems like there are other attempts to solve this problem, but they mostly in
     - http://teropa.info/blog/2013/10/18/single-page-webapps-in-clojurescript-with-pedestal.html
 - break subcomponents into separate projects
 - make starter a template
+* Troubleshooting
+** Websockets + Heroku
+If websockets don't seem to work, try ~heroku labs:enable websockets~ before deploying
