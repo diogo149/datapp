@@ -21,6 +21,12 @@ By modelling the server as just a function without any of the complexity of rout
 Since the server is just a function, everything other than function can be pulled apart into a reusable library (this one) where hopefully best practices and other nice-to-haves come for free.
 *** Decomplecting middleware and handlers
 By pulling middleware and handlers apart, the global middleware normally present in a ring application doesn't have to exist, and different routes can have different tailored middleware independent of the functions used to finally handle the requests. In addition, those functions can be completely independent of either the ring request format or even the method of communication (the same handler could be used for websocket requests).
+*** Decomplecting dependencies and components
+When component dependencies are specified with ~component/using~, those dependencies are no longer readable or editable. By constructing dependency representation separate and the system of components separately, it's easier to add/remove/see dependencies.
+*** Dependency exports
+An annoying problem with component dependencies is that the entire component is passed in which requires knowledge of the internal state of the dependency to destructure which part we actually want, which is often not desired.
+
+Because of that, a protocol is available for components to specify what it is their consumers should use.
 ** Alternatives / Other Relevant Libraries
 *** [[https://github.com/danielsz/system][system]]
 This was actually quite useful for looking at components to build. This looks like it would be a good library to depend on, but it isn't composable with components (eg. the server takes in a handler function, not another component).
@@ -28,9 +34,12 @@ This was actually quite useful for looking at components to build. This looks li
 *** Websockets + Heroku
 If websockets don't seem to work, try ~heroku labs:enable websockets~ before deploying
 * TODOs / want-to-haves
+- component pull-request with export lifecycle method
 - how to specify dependencies in a nice way?
   - eg. adding a bunch of components to a handler
   - WANT: pass in transform of a component, not a component itself
+- add starter to this repo
+- add port to app-config
 - more sugar in merging into the system map
   - use update-in [:key] merge
 - cljs timer utils

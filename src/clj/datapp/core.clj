@@ -6,18 +6,16 @@
 
 (def sample-app-config
   "This is an example of app-config, which should be overwritten"
-  {
-   :optimus/dev? false
-   :optimus/css-files []
-   :optimus/js-files ["/cljs/all.js"]
-   :optimus/assets []
-   :cljs/dev? false
+  {:cljs/dev? false
    :cljs/ns "datapp.core"
+   :cljs/react-js-path "/bower_components/react/react.js"
    :page/css-files []
    :page/js-files []
    :page/title "datapp Default Title"
-   :cljs/react-js-path "/bower_components/react/react.js"
-   })
+   :optimus/dev? false
+   :optimus/css-files []
+   :optimus/js-files ["/cljs/all.js"]
+   :optimus/assets []})
 
 (def default-dependencies
   {:middleware [:app-config]
@@ -26,7 +24,6 @@
 
 (def default-system
   {
-   ;; app/config
    :app-config sample-app-config
    ;; server/middleware
    :middleware middleware/middleware-component
