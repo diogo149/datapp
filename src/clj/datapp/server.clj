@@ -13,7 +13,8 @@
                             handler-comp]
   component/Lifecycle
   (start [this]
-    (log/info "Starting server on port" (:port server-config))
+    (log/info (str "Starting server on http://localhost:"
+                   (:port server-config)))
     (when server
       (server))
     (assoc this :server (httpkit/run-server (:handler handler-comp)

@@ -1,4 +1,5 @@
 * datapp
+Your app as data.
 ** Goals
 - provide the tools to make an app as data
 - provide everything in between calling functions between a Clojure server and Clojurescript webapp
@@ -13,14 +14,39 @@ First: I find myself, when making a quick new project for a hackathon or a quick
 Second: Decomplecting all of this stuff from business logic. This is separate logic, so it should be kept separate to make it easy to follow best practices.
 
 It seems like there are other attempts to solve this problem, but they mostly involve templates (which solves neither problem, it just makes it easier to get started). Hopefully, it can help others who feel the same.
-* TODOs
-- cljs timer utils
-- websocket component
+** Cool things
+*** A server as just a handling function
+By modelling the server as just a function without any of the complexity of routes, dispatch and everything else can be done with data with normal Clojure logic.
+*** Decomplecting business logic from everything in the middle
+Since the server is just a function, everything other than function can be pulled apart into a reusable library (this one) where hopefully best practices and other nice-to-haves come for free.
+*** Decomplecting middleware and handlers
+By pulling middleware and handlers apart, the global middleware normally present in a ring application doesn't have to exist, and different routes can have different tailored middleware independent of the functions used to finally handle the requests. In addition, those functions can be completely independent of either the ring request format or even the method of communication (the same handler could be used for websocket requests).
+** Alternatives / Other Relevant Libraries
+*** [[https://github.com/danielsz/system][system]]
+This was actually quite useful for looking at components to build. This looks like it would be a good library to depend on, but it isn't composable with components (eg. the server takes in a handler function, not another component).
+** Troubleshooting
+*** Websockets + Heroku
+If websockets don't seem to work, try ~heroku labs:enable websockets~ before deploying
+* TODOs / want-to-haves
+- how to specify dependencies in a nice way?
+  - eg. adding a bunch of components to a handler
+  - WANT: pass in transform of a component, not a component itself
 - more sugar in merging into the system map
   - use update-in [:key] merge
+- cljs timer utils
+- websocket component
+- figwheel utils
+  - create datapp.core defonce that either does a normal def or a figwheel defonce depending on environment var (or some other flag?)
+  - https://github.com/bhauman/lein-figwheel
+- add repl server
+  - [[https://github.com/danielsz/system/blob/master/src/system/components/repl_server.clj][link]]
+- add script for finding request with exception
 - try resources with in library?
+  - to be used with generating from templates eg. cordova
 - reagent / reagent utils
   - with nashorn + generating html serverside
+  - https://github.com/pleasetrythisathome/om-server-rendering/blob/master/src/clj/framework/render.clj
+  - https://github.com/pleasetrythisathome/om-server-rendering/blob/master/src/cljs/framework/core.cljs
 - scss
 - clj timer
 - authentication
@@ -40,6 +66,7 @@ It seems like there are other attempts to solve this problem, but they mostly in
   - GCM
   - make-updating-app
   - make-static-app
+  - look into jquery mobile / ratchet / etc. for template
 - node-webkit
 - testing
 - heroku/docker setup?
@@ -55,7 +82,5 @@ It seems like there are other attempts to solve this problem, but they mostly in
     - https://github.com/pedestal/pedestal
     - http://teropa.info/blog/2013/10/18/single-page-webapps-in-clojurescript-with-pedestal.html
 - break subcomponents into separate projects
+- split out utils
 - make starter a template
-* Troubleshooting
-** Websockets + Heroku
-If websockets don't seem to work, try ~heroku labs:enable websockets~ before deploying
