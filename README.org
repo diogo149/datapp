@@ -34,7 +34,6 @@ This was actually quite useful for looking at components to build. This looks li
 *** Websockets + Heroku
 If websockets don't seem to work, try ~heroku labs:enable websockets~ before deploying
 * TODOs / want-to-haves
-- add port to app-config
 - cljs timer utils
 - component pull-request with export lifecycle method
   - https://github.com/stuartsierra/component/blob/master/src/com/stuartsierra/component.clj

@@ -5,8 +5,7 @@
 
 (def default-config
   {:thread (* 2 (.availableProcessors (Runtime/getRuntime)))
-   :worker-name-prefix "server-"
-   :port 14941})
+   :worker-name-prefix "server-"})
 
 (defrecord HttpkitServerComponent [server ;; callback to cancel started server
                                    config
@@ -14,11 +13,12 @@
                                    handler]
   component/Lifecycle
   (start [this]
-    (log/info (str "Starting server on http://localhost:"
-                   (:port config)))
-    (when server
-      (server))
-    (assoc this :server (httpkit/run-server handler config)))
+    (let [port (:ring/server-port app-config)]
+      (log/info (str "Starting server on http://localhost:" port))
+      (when server
+        (server))
+      (assoc this :server (httpkit/run-server handler (assoc config
+                                                        :port port)))))
   (stop [this]
     (log/info "Stopping server")
     (server)
