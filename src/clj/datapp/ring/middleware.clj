@@ -1,4 +1,4 @@
-(ns datapp.middleware
+(ns datapp.ring.middleware
   (:require [com.stuartsierra.component :as component]
             [datapp.utils.ring :as ringu]
             datapp.export

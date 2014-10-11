@@ -1,14 +1,16 @@
 (ns datapp.core
   (:require [com.stuartsierra.component :as component]
-            [datapp.handler :as handler]
-            [datapp.middleware :as middleware]
-            [datapp.server :as server]))
+            [datapp.handlers :as handlers]
+            [datapp.ring.handler :as rhandler]
+            [datapp.ring.middleware :as rmiddleware]
+            [datapp.ring.server :as rserver]))
 
 (def sample-app-config
   "This is an example of app-config, which should be overwritten"
   {:cljs/dev? false
    :cljs/ns "datapp.core"
    :cljs/react-js-path "/bower_components/react/react.js"
+   ;; :ring/server-port 14941
    :page/css-files []
    :page/js-files []
    :page/title "datapp Default Title"
@@ -29,13 +31,13 @@
 
 (def default-system
   {:app-config sample-app-config
-   :handlers handler/default-handlers
-   :ring/middleware-comp middleware/middleware-component
-   :ring/handler-preds handler/default-handler-preds
+   :handlers handlers/default-handlers
+   :ring/middleware-comp rmiddleware/middleware-component
+   :ring/handler-preds rhandler/default-handler-preds
    :ring/request-deps {}
-   :ring/handler-comp handler/handler-component
-   :ring/server-config server/default-config
-   :ring/server-comp server/server-component})
+   :ring/handler-comp rhandler/handler-component
+   :ring/server-config rserver/default-config
+   :ring/server-comp rserver/httpkit-server-component})
 
 (defn use-depenencies
   "Adds dependencies to components that have dependencies"

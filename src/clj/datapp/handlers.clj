@@ -1,4 +1,4 @@
-(ns datapp.handler.default
+(ns datapp.handlers
   (:require [compojure.core :as compojure]
             [compojure.route :as route]
             [datapp.utils.ring :as ringu]
@@ -19,3 +19,8 @@
 (compojure/defroutes default-routes
   (route/resources "/")
   (route/not-found "Not Found"))
+
+(def default-handlers
+  {:api (fn [& args] "API not implemented")
+   :home-page home-page
+   :default default-routes})

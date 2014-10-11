@@ -1,11 +1,6 @@
-(ns datapp.handler
+(ns datapp.ring.handler
   (:require [com.stuartsierra.component :as component]
-            [datapp.handler.default :as default-handler]
             datapp.export))
-
-(def default-handlers
-  {:home-page default-handler/home-page
-   :default default-handler/default-routes})
 
 (def default-handler-preds
   [[:api #(->> % :uri (= "/api"))]

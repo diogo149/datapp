@@ -1,4 +1,4 @@
-(ns datapp.server
+(ns datapp.ring.server
   (:require [com.stuartsierra.component :as component]
             [org.httpkit.server :as httpkit]
             [taoensso.timbre :as log]))
@@ -8,9 +8,10 @@
    :worker-name-prefix "server-"
    :port 14941})
 
-(defrecord ServerComponent [server ;; callback to cancel started server
-                            config
-                            handler]
+(defrecord HttpkitServerComponent [server ;; callback to cancel started server
+                                   config
+                                   app-config
+                                   handler]
   component/Lifecycle
   (start [this]
     (log/info (str "Starting server on http://localhost:"
@@ -23,4 +24,4 @@
     (server)
     (dissoc this :server)))
 
-(def server-component (map->ServerComponent {}))
+(def httpkit-server-component (map->HttpkitServerComponent {}))
