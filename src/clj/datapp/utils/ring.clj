@@ -99,3 +99,12 @@
         (let [new-resp (pr-str resp)
               as-map {:q new-resp}]
           (json-response as-map))))))
+
+(def last-request (atom nil))
+
+(defn wrap-save-last-request
+  "Saves the last request into an atom, for debugging"
+  [handler]
+  (fn [req]
+    (reset! last-request req)
+    (handler req)))

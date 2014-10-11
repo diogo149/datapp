@@ -1,6 +1,7 @@
 (ns datapp.middleware
   (:require [com.stuartsierra.component :as component]
             [datapp.utils.ring :as ringu]
+            datapp.export
             ring.middleware.params
             ring.middleware.keyword-params
             ring.middleware.json
@@ -49,10 +50,10 @@
   [{:keys [] :as app-config}]
   {:api #(-> %
              wrap-call-api
+             ;; NOTE: only works for responses that are a map
              ring.middleware.transit/wrap-transit-params
              ringu/wrap-transit-response
-             ;; not using this for now because it only works for responses
-             ;; that are a map
+             ;; not using because ringu/wrap-transit-response always converts
              #_ring.middleware.transit/wrap-transit-response
              ;; ring.middleware.keyword-params/wrap-keyword-params
              ;; ring.middleware.json/wrap-json-params
@@ -72,6 +73,8 @@
   (start [this]
     (assoc this :middleware-map (default-middleware-map app-config)))
   (stop [this]
-    (dissoc this :middleware-map)))
+    (dissoc this :middleware-map))
+  datapp.export/Exportable
+  (export [this] middleware-map))
 
 (def middleware-component (map->MiddlewareComponent {}))

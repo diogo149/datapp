@@ -1,12 +1,13 @@
 (ns datapp.handler
   (:require [com.stuartsierra.component :as component]
-            [datapp.handler.default :as default-handler]))
+            [datapp.handler.default :as default-handler]
+            datapp.export))
 
 (def default-handlers
   {:home-page default-handler/home-page
    :default default-handler/default-routes})
 
-(def default-handler-filters
+(def default-handler-preds
   [[:api #(->> % :uri (= "/api"))]
    [:home-page (fn [{:keys [request-method uri]}]
                  (and (= :get request-method)
@@ -14,31 +15,31 @@
    [:default (constantly true)]])
 
 (defn create-handler
-  [{:keys [handlers handler-filters middleware]}]
+  [{:keys [handlers handler-preds middleware-map]}]
   (reduce (fn [prev-handler [kw pred]]
             (let [this-handler (handlers kw)]
               (if-not this-handler
                 prev-handler
-                (let [wrapped-handler ((middleware kw identity) this-handler)]
+                (let [middleware (middleware-map kw identity)
+                      wrapped-handler (middleware this-handler)]
                   (fn [req]
                     ((if (pred req)
                         wrapped-handler
                         prev-handler)
                      req))))))
           (fn [& _] (throw (Exception. "No default handler found")))
-          (reverse handler-filters)))
+          (reverse handler-preds)))
 
 (defrecord HandlerComponent [handler
                              handlers
-                             handler-filters
-                             middleware]
+                             handler-preds
+                             middleware-map]
   component/Lifecycle
   (start [this]
-    (assoc this :handler (create-handler
-                          {:handlers handlers
-                           :handler-filters handler-filters
-                           :middleware (:middleware-map middleware)})))
+    (assoc this :handler (create-handler this)))
   (stop [this]
-    (dissoc this :handler)))
+    (dissoc this :handler))
+  datapp.export/Exportable
+  (export [this] handler))
 
 (def handler-component (map->HandlerComponent {}))

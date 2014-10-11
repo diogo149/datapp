@@ -9,16 +9,15 @@
    :port 14941})
 
 (defrecord ServerComponent [server ;; callback to cancel started server
-                            server-config
-                            handler-comp]
+                            config
+                            handler]
   component/Lifecycle
   (start [this]
     (log/info (str "Starting server on http://localhost:"
-                   (:port server-config)))
+                   (:port config)))
     (when server
       (server))
-    (assoc this :server (httpkit/run-server (:handler handler-comp)
-                                            server-config)))
+    (assoc this :server (httpkit/run-server handler config)))
   (stop [this]
     (log/info "Stopping server")
     (server)

@@ -18,30 +18,34 @@
    :optimus/assets []})
 
 (def default-dependencies
-  {:middleware [:app-config]
-   :handler-comp [:handlers :handler-filters :middleware]
-   :server-comp [:server-config :handler-comp]})
+  {:ring/request-deps [:app-config]
+   :ring/middleware-comp [:app-config]
+   :ring/handler-comp {:handlers :handlers
+                       :handler-preds :ring/handler-preds
+                       :middleware-map :ring/middleware-comp
+                       :request-deps :ring/request-deps}
+   :ring/server-comp {:config :ring/server-config
+                      :handler :ring/handler-comp}})
 
 (def default-system
-  {
-   :app-config sample-app-config
-   ;; server/middleware
-   :middleware middleware/middleware-component
-   ;; server/handlers
+  {:app-config sample-app-config
    :handlers handler/default-handlers
-   ;; server/filters
-   :handler-filters handler/default-handler-filters
-   ;; handler???
-   :handler-comp  handler/handler-component
-   ;; server/config
-   :server-config server/default-config
-   ;; server/component
-   :server-comp server/server-component
-   })
+   :ring/middleware-comp middleware/middleware-component
+   :ring/handler-preds handler/default-handler-preds
+   :ring/request-deps {}
+   :ring/handler-comp handler/handler-component
+   :ring/server-config server/default-config
+   :ring/server-comp server/server-component})
+
+(defn use-depenencies
+  "Adds dependencies to components that have dependencies"
+  [system dependencies]
+  (reduce (fn [sys [key deps]] (update-in sys [key] component/using deps))
+          system
+          dependencies))
 
 (defn make-system
-  [system-overrides]
-  (->> system-overrides
-       (merge default-system)
+  [system dependencies]
+  (->> (use-depenencies system dependencies)
        (apply concat)
        (apply component/system-map)))

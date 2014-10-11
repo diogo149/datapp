@@ -34,16 +34,20 @@ This was actually quite useful for looking at components to build. This looks li
 *** Websockets + Heroku
 If websockets don't seem to work, try ~heroku labs:enable websockets~ before deploying
 * TODOs / want-to-haves
-- component pull-request with export lifecycle method
+- now
+  - change namespaces to match keyword namespaces
 - how to specify dependencies in a nice way?
   - eg. adding a bunch of components to a handler
   - WANT: pass in transform of a component, not a component itself
+- component pull-request with export lifecycle method
+  - https://github.com/stuartsierra/component/blob/master/src/com/stuartsierra/component.clj
 - add starter to this repo
 - add port to app-config
-- more sugar in merging into the system map
-  - use update-in [:key] merge
 - cljs timer utils
 - websocket component
+  - https://github.com/seancorfield/om-sente/blob/master/src/clj/om_sente/server.clj
+  - https://github.com/seancorfield/om-sente/blob/master/src/cljs/om_sente/core.cljs
+  - https://github.com/danielsz/system/blob/master/src/system/components/sente.clj
 - figwheel utils
   - create datapp.core defonce that either does a normal def or a figwheel defonce depending on environment var (or some other flag?)
   - https://github.com/bhauman/lein-figwheel
@@ -77,6 +81,7 @@ If websockets don't seem to work, try ~heroku labs:enable websockets~ before dep
   - make-static-app
   - look into jquery mobile / ratchet / etc. for template
 - node-webkit
+- browser extension
 - testing
 - heroku/docker setup?
 - make project work with cljx
