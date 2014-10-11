@@ -12,6 +12,7 @@
   (export [this]
     this))
 
+;; FIXME - find a long term solution to not using raw dependencies
 ;; copied from https://github.com/stuartsierra/component/blob/master/src/com/stuartsierra/component.clj on 20141009
 (defn- assoc-dependency [system component dependency-key system-key]
   (let [dependency (get system system-key)]
