@@ -34,7 +34,12 @@ This was actually quite useful for looking at components to build. This looks li
 *** Websockets + Heroku
 If websockets don't seem to work, try ~heroku labs:enable websockets~ before deploying
 * TODOs / want-to-haves
+- use request-deps in middleware
+- how to handle prod/dev/etc configuration in a hard to screw up way
+  - so that we can use macros to exclude unnecessary stuff in cljs
 - cljs timer utils
+- clj timer
+  - https://github.com/overtone/at-at
 - component pull-request with export lifecycle method
   - https://github.com/stuartsierra/component/blob/master/src/com/stuartsierra/component.clj
 - add starter to this repo
@@ -43,8 +48,15 @@ If websockets don't seem to work, try ~heroku labs:enable websockets~ before dep
   - https://github.com/seancorfield/om-sente/blob/master/src/cljs/om_sente/core.cljs
   - https://github.com/danielsz/system/blob/master/src/system/components/sente.clj
 - figwheel utils
-  - create datapp.core defonce that either does a normal def or a figwheel defonce depending on environment var (or some other flag?)
   - https://github.com/bhauman/lein-figwheel
+  - https://github.com/gadfly361/reagent-figwheel
+    - [[https://github.com/gadfly361/reagent-figwheel/blob/master/src/leiningen/new/reagent_figwheel/user.clj][user.clj]]
+      - contains figwheel starting code and browser repl code
+    - [[https://github.com/gadfly361/reagent-figwheel/blob/master/src/leiningen/new/reagent_figwheel/user.cljs][user.cljs]]
+      - contains browser repl and figwheel connecting
+- lively for cljs auto-refresh
+  - have option for this instead of figwheel
+  - https://github.com/immoh/lively
 - add repl server
   - [[https://github.com/danielsz/system/blob/master/src/system/components/repl_server.clj][link]]
 - add script for finding request with exception

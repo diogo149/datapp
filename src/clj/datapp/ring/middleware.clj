@@ -68,6 +68,7 @@
                  (wrap-defaults app-config))})
 
 (defrecord MiddlewareComponent [app-config
+                                request-deps
                                 middleware-map]
   component/Lifecycle
   (start [this]
