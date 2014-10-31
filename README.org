@@ -66,6 +66,7 @@ If websockets don't seem to work, try ~heroku labs:enable websockets~ before dep
   - with nashorn + generating html serverside
   - https://github.com/pleasetrythisathome/om-server-rendering/blob/master/src/clj/framework/render.clj
   - https://github.com/pleasetrythisathome/om-server-rendering/blob/master/src/cljs/framework/core.cljs
+  - https://github.com/OtherPeoplesPixels/curmudjeon/blob/master/src/curmudjeon/hiccup.clj
 - scss
 - clj timer
 - authentication
